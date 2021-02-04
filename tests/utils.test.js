@@ -26,8 +26,23 @@ it("should say hello", function() {
 // This is called "Red-Green-Refactor"
 // ========================================================
 
+it("should return area of 25", function() {
+  const area = utils.area(5, 5)
+  expect(area).to.be.a("number")
+  expect(area).to.equal(25)
+})
 
+it("should return perimeter of 20", function() {
+  const perimeter = utils.perimeter(7, 2)
+  expect(perimeter).to.be.a("number")
+  expect(perimeter).to.equal(18)
+})
 
+it("should return circleArea of 314", function() {
+  const circleArea = utils.circleArea(10)
+  expect(circleArea).to.be.a("number")
+  expect(circleArea).to.equal(314)
+})
 
 // ========================================================
 // Level 2 Challenges
@@ -36,6 +51,12 @@ it("should say hello", function() {
 // of "Pending Tests" in Chai. Someone should write these
 // tests eventually.
 // ========================================================
+
+gen_item = {
+  name:'food',
+  price: 100,
+  quantity: 1
+}
 
 beforeEach((done) => {
   utils.clearCart()
@@ -50,13 +71,35 @@ it("Should create a new (object) Item with name and price", function() {
   expect(item).to.have.property("quantity", 1)
 })
 
-it("Should return an array containing all items in cart")
+it("Should return an array containing all items in cart", function() {
+  const shoppingCart = utils.getShoppingCart();
+  expect(shoppingCart).to.be.a("Array");
+  expect(shoppingCart).with.length(0);
+});
 
-it("Should add a new item to the shopping cart")
+it("Should add a new item to the shopping cart", function() {
+  const addItemToCart = utils.addItemToCart(gen_item);
+  const shoppingCart = utils.getShoppingCart();
+  expect(shoppingCart).to.be.a("Array");
+  expect(shoppingCart).with.length(1);
+});
 
-it("Should return the number of items in the cart")
+it("Should return the number of items in the cart", function() {
+  let cartItemsNum = utils.getNumItemsInCart();
+  expect(cartItemsNum).to.be.a("number");
+  expect(cartItemsNum).to.equal(0)
+  const addItemToCart = utils.addItemToCart(gen_item);
+  cartItemsNum = utils.getNumItemsInCart();
+  expect(cartItemsNum).to.be.a("number");
+  expect(cartItemsNum).to.equal(1)
+});
 
-it("Should remove items from cart")
+it("Should remove items from cart", function() {
+  const cartItemRemoved = utils.removeItemFromCart(gen_item);
+  const cartItemsNum = utils.getNumItemsInCart();
+  expect(cartItemsNum).to.be.a("number");
+  expect(cartItemsNum).to.equal(0)
+})
 
 // ========================================================
 // Stretch Challenges
